@@ -3,6 +3,7 @@ const startBtn = $('.start-btn');
 const playerMenu = $('.player-menu');
 const playerInput = $('.player-menu input');
 const playerLabel = $('.player-menu label');
+const gameBoardLayout = $('.game-board-layout')
 
 // Tiles class will create the X's and O's for each players Tile hand.
 class Tiles {
@@ -82,8 +83,13 @@ playerMenu.on('click', (e)=> {
     if(game.players.length === 2) {
       playerMenu.hide();
       $('.game-name').hide();
+      // gameBoardLayout.show();
       game.addPlayersTiles();
       console.log(game.players)
     }
   }
+});
+
+gameBoardLayout.on('click', (e)=> {
+  console.log(e.target)
 })

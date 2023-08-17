@@ -1,3 +1,7 @@
+header {
+  display: none;
+}
+
 .middle {
   position: absolute;
   top: 50%;
@@ -9,3 +13,44 @@
 .player-menu {
   display: none;
 }
+
+/* .game-board-layout {
+  display: none;
+} */
+
+.game-board {
+  width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.colOne div,
+.colTwo div,
+.colThree div {
+  padding: 3rem;
+}
+
+.colOne,
+.colTwo,
+.colThree {
+text-align: center;
+font-size: 3rem;
+}
+.colOne div,
+.colTwo div {
+  border-right: 5px solid black;
+}
+
+.colOne div:nth-of-type(1n+2),
+.colTwo div:nth-of-type(1n+2),
+.colThree div:nth-of-type(1n+2) {
+  border-top: 5px solid black;
+}
+
+.colOne div:hover,
+.colTwo div:hover,
+.colThree div:hover {
+  cursor: pointer;
+}
+
