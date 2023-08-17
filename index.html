@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header>
-    <div class="middle d-flex flex-column align-items-center">
-      <h1 class="game-name">Classic TicTacToe</h1>
-      <div>
-        <button type="button" class="start-btn btn btn-outline-info">Start Game</button>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <div class="middle d-flex flex-column align-items-center">
+        <h1 class="game-name">Classic TicTacToe</h1>
+        <div>
+          <button type="button" class="start-btn btn btn-outline-info">Start Game</button>
+        </div>
+        <div class="player-menu flex-column align-items-center">
+          <div>
+            <form class="text-center">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"></label>
+                <input type="text" class="form-control">
+                <div class="d-grid gap-2 col-6 mx-auto mt-2">
+                  <button id ='player-sb' class="btn btn-primary" type="submit">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
-  </header>
-  <main class="container">
+    </header>
+    <main class="container">
       <div class="game-board">
         <div class="win-announce"></div>
         <div class="game-board-layout">
@@ -24,9 +37,9 @@
           <div class="playerO"></div>
         </div>
       </div>
-  </main>
-  <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="node_modules/jquery/dist/jquery.js"></script>
-  <script src="app.js"></script>
-</body>
+    </main>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
