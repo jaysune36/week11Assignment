@@ -1,5 +1,9 @@
-header {
+/* header {
   display: none;
+} */
+
+ul {
+  list-style-type: none;
 }
 
 .middle {
@@ -14,9 +18,10 @@ header {
   display: none;
 }
 
-/* .game-board-layout {
-  display: none;
-} */
+.game-board-layout {
+  display: flex;
+  flex-direction: column;
+}
 
 .game-board {
   width: 500px;
@@ -25,32 +30,75 @@ header {
   justify-content: center;
 }
 
-.colOne div,
-.colTwo div,
-.colThree div {
+.game-board-players {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 3rem;
+}
+
+.player {
+  width: 200px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.player ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.player li {
+  font-size: 2.5rem;
+}
+
+.col1 div,
+.col2 div,
+.col3 div {
   padding: 3rem;
 }
 
-.colOne,
-.colTwo,
-.colThree {
+.col1,
+.col2,
+.col3 {
 text-align: center;
 font-size: 3rem;
 }
-.colOne div,
-.colTwo div {
+.col1 div,
+.col2 div {
   border-right: 5px solid black;
 }
 
-.colOne div:nth-of-type(1n+2),
-.colTwo div:nth-of-type(1n+2),
-.colThree div:nth-of-type(1n+2) {
+.col1 div:nth-of-type(1n+2),
+.col2 div:nth-of-type(1n+2),
+.col3 div:nth-of-type(1n+2) {
   border-top: 5px solid black;
 }
 
-.colOne div:hover,
-.colTwo div:hover,
-.colThree div:hover {
+.col1 div:hover,
+.col2 div:hover,
+.col3 div:hover {
   cursor: pointer;
+}
+
+.player ul {
+  padding-inline-start: 0;
+}
+
+.player p {
+  text-decoration: underline;
+}
+
+.player1 {
+  color: #A4160C;
+}
+
+.player2 {
+  color: #16537E;
+}
+
+.game-board-layout {
+  display: none;
 }
 

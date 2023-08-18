@@ -3,7 +3,49 @@ const startBtn = $('.start-btn');
 const playerMenu = $('.player-menu');
 const playerInput = $('.player-menu input');
 const playerLabel = $('.player-menu label');
-const gameBoardLayout = $('.game-board-layout')
+const gameBoardLayout = $('.game-board-layout');
+
+function gameboardCreate() {
+  let gbDiv = document.createElement('div');
+  gbDiv.className = 'game-board';
+  let index = 1;
+  for(let i=0;i<3;i++) {
+    let colDiv = document.createElement('div');
+    colDiv.className = `col${i + 1}`
+    for(let j=0;j<3;j++){
+      let spaceDiv = document.createElement('div');
+      spaceDiv.setAttribute('data-index', index);
+      colDiv.insertAdjacentElement('beforeend', spaceDiv);
+      index++;
+    } 
+    gbDiv.insertAdjacentElement('beforeend', colDiv)
+  }
+
+  return gameBoardLayout.prepend(gbDiv);
+}
+
+function playerLayout(playerArr) {
+  let gbpDiv = document.createElement('div');
+  gbpDiv.className = `game-board-players`;
+  for(let i=0;i<playerArr.length;i++) {
+    let playerDiv = document.createElement('div');
+    playerDiv.className = `player${i+1} player`
+    let p = document.createElement('p');
+    p.innerText = playerArr[i].name;
+    let ul = document.createElement('ul');
+    for(let j=0;j<playerArr[i].tilesHand.length;j++) {
+      let li = document.createElement('li');
+      li.innerText = playerArr[i].tilesHand[j];
+      ul.appendChild(li);
+    }
+    playerDiv.appendChild(p);
+    playerDiv.appendChild(ul);
+    gbpDiv.insertAdjacentElement('beforeend', playerDiv)
+  }
+  // console.log(gbpDiv)
+  return gameBoardLayout.prepend(gbpDiv)
+  
+}
 
 // Tiles class will create the X's and O's for each players Tile hand.
 class Tiles {
@@ -83,9 +125,12 @@ playerMenu.on('click', (e)=> {
     if(game.players.length === 2) {
       playerMenu.hide();
       $('.game-name').hide();
-      // gameBoardLayout.show();
+      gameBoardLayout.show();
+      // console.log(gameboardCreate());
       game.addPlayersTiles();
-      console.log(game.players)
+      playerLayout(game.players);
+      gameboardCreate()
+      // console.log(game.players.length)
     }
   }
 });
