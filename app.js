@@ -7,21 +7,17 @@ const gameBoardLayout = $('.game-board-layout');
 
 function gameboardCreate() {
   let gbDiv = document.createElement('div');
+  let gameAlert = document.createElement('div');
+  gameAlert.className ='game-alert';
   gbDiv.className = 'game-board';
-  let index = 1;
-  for(let i=0;i<3;i++) {
-    let colDiv = document.createElement('div');
-    colDiv.className = `col${i + 1}`
-    for(let j=0;j<3;j++){
-      let spaceDiv = document.createElement('div');
-      spaceDiv.setAttribute('data-index', index);
-      colDiv.insertAdjacentElement('beforeend', spaceDiv);
-      index++;
+  for(let i=0;i<9;i++) {
+      let gameBtn = document.createElement('button');
+      gameBtn.setAttribute('data-index', i + 1);
+      gameBtn.className = 'game-tile';
+      gbDiv.insertAdjacentElement('beforeend', gameBtn);
     } 
-    gbDiv.insertAdjacentElement('beforeend', colDiv)
-  }
 
-  return gameBoardLayout.prepend(gbDiv);
+  return gameBoardLayout.prepend(gbDiv, gameAlert);
 }
 
 function playerLayout(playerArr) {
@@ -42,7 +38,6 @@ function playerLayout(playerArr) {
     playerDiv.appendChild(ul);
     gbpDiv.insertAdjacentElement('beforeend', playerDiv)
   }
-  // console.log(gbpDiv)
   return gameBoardLayout.prepend(gbpDiv)
   
 }
@@ -70,13 +65,12 @@ class Tiles {
 
 // Players class will create each player
 class Player {
+  static indexValue = 0;
   constructor(name) {
     this.name = name;
     this.tilesHand = [];
-  }
-
-  addPlayersTiles() {
-    let tiles = new Tiles();
+    this.tilesClaimed = [];
+    this.index = ++Player.indexValue;
   }
   
 }
@@ -85,6 +79,7 @@ class Player {
 class GameBoard {
   constructor() {
     this.players = [];
+    this.playerTurn;
     this.winner;
   }
 
@@ -125,16 +120,30 @@ playerMenu.on('click', (e)=> {
     if(game.players.length === 2) {
       playerMenu.hide();
       $('.game-name').hide();
-      gameBoardLayout.show();
-      // console.log(gameboardCreate());
+      gameBoardLayout.css('display', 'flex');
       game.addPlayersTiles();
       playerLayout(game.players);
-      gameboardCreate()
-      // console.log(game.players.length)
+      gameboardCreate();
+      let message = $('.game-alert')
+      game.playerTurn = game.players[0]
+      message.text(`${game.playerTurn.name} Turn`);
+      message.addClass(`player${game.playerTurn.index}`);
     }
   }
 });
 
 gameBoardLayout.on('click', (e)=> {
-  console.log(e.target)
+  if(e.target.className === 'game-tile' && e.target.innerText === '') {
+    let message = $('.game-alert');
+    e.target.innerText = `${game.playerTurn.tilesHand[0]}`;
+    message.removeClass(`player${game.playerTurn.index}`);
+    if(game.playerTurn.index === 1) {
+      game.playerTurn = game.players[1];
+    } else {
+      game.playerTurn = game.players[0];
+    }
+    message.text(`${game.playerTurn.name} Turn`);
+    message.addClass(`player${game.playerTurn.index}`);
+    console.log(game.player)
+  }
 })
