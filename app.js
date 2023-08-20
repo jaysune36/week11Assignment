@@ -4,6 +4,9 @@ const playerMenu = $('.player-menu');
 const playerInput = $('.player-menu input');
 const playerLabel = $('.player-menu label');
 const gameBoardLayout = $('.game-board-layout');
+const gameOver = $('.game-over');
+const gameAnnounce = $('.game-announce');
+const secondChance = $('.chance')
 
 function gameboardCreate() {
   let gbDiv = document.createElement('div');
@@ -38,8 +41,14 @@ function playerLayout(playerArr) {
     playerDiv.appendChild(ul);
     gbpDiv.insertAdjacentElement('beforeend', playerDiv)
   }
-  return gameBoardLayout.prepend(gbpDiv)
-  
+  return gameBoardLayout.prepend(gbpDiv) 
+}
+
+function playerHandUpdate(player) {
+  player.tilesHand.pop();
+  let activePlayerHndUpdte = document.querySelector(`.player${player.index} ul`);
+  activePlayerHndUpdte.removeChild(activePlayerHndUpdte.firstElementChild);
+  return activePlayerHndUpdte;
 }
 
 // Tiles class will create the X's and O's for each players Tile hand.
@@ -80,11 +89,26 @@ class GameBoard {
   constructor() {
     this.players = [];
     this.playerTurn;
-    this.winner;
+    this.playerWon = false;
   }
 
-  gameStart() {
-
+  gameWinCheck(arr) {
+    let winningCombos = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
+    let comboCount = 0;
+    for(let i=0;i<winningCombos.length;i++) {
+      let winningCombo = winningCombos[i];
+      for(let j=0;j<winningCombo.length;j++) {
+        if(arr.includes(winningCombo[j])) {
+          comboCount++;
+        }
+      }
+      if(comboCount === 3) {
+        this.playerWon = true;
+        break;
+      } else {
+        comboCount = 0; 
+      }
+    }
   }
 
   addPlayers(name) {
@@ -135,7 +159,21 @@ playerMenu.on('click', (e)=> {
 gameBoardLayout.on('click', (e)=> {
   if(e.target.className === 'game-tile' && e.target.innerText === '') {
     let message = $('.game-alert');
+    let h2 = document.createElement('h2');
     e.target.innerText = `${game.playerTurn.tilesHand[0]}`;
+    game.playerTurn.tilesClaimed.push(parseFloat(e.target.getAttribute('data-index')));
+    game.gameWinCheck(game.playerTurn.tilesClaimed);
+    playerHandUpdate(game.playerTurn)
+
+    if(game.playerWon === true) {
+      h2.innerText = `${game.playerTurn.name} Won!`;
+      gameAnnounce.css('display', 'flex');
+      secondChance.css('display', 'flex');
+      gameAnnounce.prepend(h2);
+      gameOver.addClass('overlay')
+    } else if(game.players[0].tilesClaimed.length + game.players[1].tilesClaimed.length === 9) {
+      message.text(`It's a Tie!`)
+    }else {
     message.removeClass(`player${game.playerTurn.index}`);
     if(game.playerTurn.index === 1) {
       game.playerTurn = game.players[1];
@@ -144,6 +182,20 @@ gameBoardLayout.on('click', (e)=> {
     }
     message.text(`${game.playerTurn.name} Turn`);
     message.addClass(`player${game.playerTurn.index}`);
-    console.log(game.player)
+    }
+  }
+})
+
+gameAnnounce.on('click', (e)=> {
+  if(e.target.id === 'main-menu') {
+    $('.game-name').show();
+    startBtn.show();
+    gameBoardLayout.empty();
+    gameBoardLayout.css('display', 'none');
+    gameOver.removeClass('overlay')
+    gameAnnounce.css('display', 'none');
+    secondChance.css('display', 'none');
+    let player = new Player();
+    player.indexValue = 0;
   }
 })
