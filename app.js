@@ -6,7 +6,8 @@ const playerLabel = $('.player-menu label');
 const gameBoardLayout = $('.game-board-layout');
 const gameOver = $('.game-over');
 const gameAnnounce = $('.game-announce');
-const secondChance = $('.chance')
+const secondChance = $('.chance');
+let playerIndex = 1;
 
 function gameboardCreate() {
   let gbDiv = document.createElement('div');
@@ -74,12 +75,12 @@ class Tiles {
 
 // Players class will create each player
 class Player {
-  static indexValue = 0;
-  constructor(name) {
+  // static indexValue = 0;
+  constructor(name, index) {
     this.name = name;
     this.tilesHand = [];
     this.tilesClaimed = [];
-    this.index = ++Player.indexValue;
+    this.index = index;
   }
   
 }
@@ -111,8 +112,8 @@ class GameBoard {
     }
   }
 
-  addPlayers(name) {
-    this.players.push(new Player(name));
+  addPlayers(name, num) {
+    this.players.push(new Player(name, num));
   }
 
   addPlayersTiles() {
@@ -138,7 +139,8 @@ startBtn.on('click', (e)=> {
 playerMenu.on('click', (e)=> {
   e.preventDefault();
   if(e.target.id === 'player-sb') {
-    game.addPlayers(playerInput.val());
+    game.addPlayers(playerInput.val(), playerIndex);
+    playerIndex++;
     playerLabel.text(`Please enter Player ${game.players.length + 1}`);
     playerInput.val('');
     if(game.players.length === 2) {
@@ -158,6 +160,7 @@ playerMenu.on('click', (e)=> {
 
 gameBoardLayout.on('click', (e)=> {
   if(e.target.className === 'game-tile' && e.target.innerText === '') {
+    console.log(game.players)
     let message = $('.game-alert');
     let h2 = document.createElement('h2');
     e.target.innerText = `${game.playerTurn.tilesHand[0]}`;
@@ -195,7 +198,9 @@ gameAnnounce.on('click', (e)=> {
     gameOver.removeClass('overlay')
     gameAnnounce.css('display', 'none');
     secondChance.css('display', 'none');
-    let player = new Player();
-    player.indexValue = 0;
+    playerIndex = 1;
+    game.players = [];
+    game.playerWon = false;
+    $('.game-over h2').remove();
   }
 })
