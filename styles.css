@@ -2,9 +2,11 @@
   box-sizing: border-box;
 }
 
-/* header {
-  display: none;
-} */
+body {
+  /* background-color: linear-gradient(30deg,#FFCB2E,#0036E5); */
+  margin: 100vw;
+  background: linear-gradient(30deg,#FFCB2E,#0036E5);
+}
 
 .game-announce {
   display: none;
@@ -62,6 +64,11 @@ ul {
 
 .game-board {
   order: 2;
+}
+
+.game-board button {
+  border: none;
+  border-radius: 10px;
 }
 
 .game-board-players {

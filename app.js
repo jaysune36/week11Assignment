@@ -138,7 +138,7 @@ startBtn.on('click', (e)=> {
 
 playerMenu.on('click', (e)=> {
   e.preventDefault();
-  if(e.target.id === 'player-sb') {
+  if(e.target.id === 'player-sb' && playerInput.val() !== '') {
     game.addPlayers(playerInput.val(), playerIndex);
     playerIndex++;
     playerLabel.text(`Please enter Player ${game.players.length + 1}`);
@@ -175,7 +175,11 @@ gameBoardLayout.on('click', (e)=> {
       gameAnnounce.prepend(h2);
       gameOver.addClass('overlay')
     } else if(game.players[0].tilesClaimed.length + game.players[1].tilesClaimed.length === 9) {
-      message.text(`It's a Tie!`)
+      h2.innerText = `It's a Tie!`;
+      gameAnnounce.css('display', 'flex');
+      secondChance.css('display', 'flex');
+      gameAnnounce.prepend(h2);
+      gameOver.addClass('overlay')
     }else {
     message.removeClass(`player${game.playerTurn.index}`);
     if(game.playerTurn.index === 1) {
@@ -202,5 +206,24 @@ gameAnnounce.on('click', (e)=> {
     game.players = [];
     game.playerWon = false;
     $('.game-over h2').remove();
+  } 
+  if(e.target.id === 'play-again') {
+    game.playerWon = false;
+    for(let player of game.players) {
+      player.tilesHand = [];
+      player.tilesClaimed = [];
+    }
+    game.addPlayersTiles();
+    gameBoardLayout.empty();
+    gameOver.removeClass('overlay');
+    gameAnnounce.css('display', 'none');
+    secondChance.css('display', 'none');
+    $('.game-over h2').remove();
+    playerLayout(game.players)
+    gameboardCreate();
+    let message = $('.game-alert')
+    game.playerTurn = game.players[0]
+    message.text(`${game.playerTurn.name} Turn`);
+    message.addClass(`player${game.playerTurn.index}`);
   }
 })
