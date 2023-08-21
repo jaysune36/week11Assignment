@@ -3,9 +3,12 @@
 }
 
 body {
-  /* background-color: linear-gradient(30deg,#FFCB2E,#0036E5); */
   margin: 100vw;
-  background: linear-gradient(30deg,#FFCB2E,#0036E5);
+  background: linear-gradient(-60deg,#FFCB2E,#0036E5);
+  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Rock Salt', cursive;
+  font-family: 'Shantell Sans', cursive;
 }
 
 .game-announce {
@@ -18,7 +21,12 @@ body {
 .chance {
   display: none;
   flex: row;
-  width: 500px;
+  width: 600px;
+  padding: 1.25rem;
+}
+
+.game-announce h2 {
+  text-align: center;
 }
 
 .chance p {
@@ -123,11 +131,11 @@ ul {
 }
 
 .player1 {
-  color: #A4160C;
+  color: #fffC;
 }
 
 .player2 {
-  color: #16537E;
+  color: #0043CD;
 }
 
 .game-board-layout {

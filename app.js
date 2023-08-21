@@ -128,7 +128,6 @@ let game = new GameBoard();
 
 // Using jquery on the start-btn variable to add an event listener of click.
 startBtn.on('click', (e)=> {
-  
   if(e.target !== startBtn) {
     startBtn.hide();
     playerMenu.show();
@@ -160,7 +159,6 @@ playerMenu.on('click', (e)=> {
 
 gameBoardLayout.on('click', (e)=> {
   if(e.target.className === 'game-tile' && e.target.innerText === '') {
-    console.log(game.players)
     let message = $('.game-alert');
     let h2 = document.createElement('h2');
     e.target.innerText = `${game.playerTurn.tilesHand[0]}`;

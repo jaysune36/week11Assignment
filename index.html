@@ -4,48 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Boostrap link for all boostrap stylings -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <!-- /Boostrap link -->
+    <!-- Google Fonts link tag for font change stylesheets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,300&family=Rock+Salt&family=Shantell+Sans:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- /Google Fonts link -->
+    <!-- CSS styling sheet link -->
     <link rel="stylesheet" href="styles.css">
+    <!-- /CSS styling sheet -->
   </head>
   <body>
     <header>
-      <div class="middle d-flex flex-column align-items-center">
+      <!-- Header Main Div -->
+      <div
+        class="middle d-flex flex-column align-items-center">
+        <!-- h1 Title of the Game -->
         <h1 class="game-name">Classic TicTacToe</h1>
+        <!-- Div for main button to start the game and div created as a container for flex box using Bootstrap -->
         <div>
           <button type="button" class="start-btn btn btn-outline-info">Start Game</button>
+          <!-- /Div for start button -->
         </div>
-        <div class="player-menu flex-column align-items-center">
+        <!-- .player-menu: allows user to enter players name using the form tag -->
+        <div
+          class="player-menu flex-column align-items-center">
+          <!-- Div for form class and to create container for flex box items -->
           <div>
-            <form class="text-center">
-              <div class="mb-3">
+            <!-- Form for players to enter the names -->
+            <form
+              class="text-center">
+              <!-- Div container for players info input -->
+              <div
+                class="mb-3">
+                <!-- Label to identify which player will enter there name. No text as this is intersected with JS. -->
                 <label for="playerNameInput" class="form-label"></label>
-                <input type="text" class="form-control" id="playerNameInput">
+                <!-- Input for text to accept the value entered as the players name -->
+                <input
+                type="text" class="form-control" id="playerNameInput">
+                <!-- Div Container for Bootstrap button -->
                 <div class="d-grid gap-2 col-6 mx-auto mt-2">
                   <button id='player-sb' class="btn btn-primary" type="submit">Submit</button>
                 </div>
+                <!--  -->
               </div>
+              <!-- /Form -->
             </form>
+            <!-- /Div for form class -->
           </div>
+          <!-- /.player-menu -->
         </div>
+        <!-- /Header Main Div -->
       </div>
     </header>
+    <!-- Main Tag/ Container -->
     <main class="container">
+      <!-- .game-board-layout displays User Turn/Game Board/Player tiles using JS -->
       <div class="game-board-layout middle"></div>
-      <div class="game-over"> 
+      <!-- .game-over Modal overlay black-out the game-board so nothing further can pressed on the board.-->
+      <div class="game-over">
+        <!-- .game-announce is the modal window that displays the winner or tie alert and will display the play again or main menu button-->
         <div class="game-announce middle">
-          <!-- <h2>player won</h2> -->
-        <div class="chance">
-          <p>Would you like to player again?</p>
-        <div>
-          <button id='play-again' class="btn btn-outline-danger" type="submit">Try Again!</button>
+          <!-- .chance will ask the player if they would like to play again or return the main menu -->
+          <div class="chance">
+            <p>Would you like to player again?</p>
+            <div>
+              <button id='play-again' class="btn btn-outline-danger" type="submit">Try Again!</button>
+            </div>
+            <div>
+              <button id='main-menu' class="btn btn-outline-success" type="submit">Main Menu</button>
+            </div>
+          </div>
+          <!-- /.game-announce -->
         </div>
-        <div>
-          <button id='main-menu' class="btn btn-outline-success" type="submit">Main Menu</button>
-        </div>
-        </div>
-        
+        <!-- /.game-over -->
       </div>
-    <!-- </div> -->
-     
+      <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+      <script src="node_modules/jquery/dist/jquery.js"></script>
+      <script src="app.js"></script>
+      <!-- /Main Tag/Container -->
+    </main>
   </body>
-</html></main><script src="node_modules/bootstrap/dist/js/bootstrap.js"></script><script src="node_modules/jquery/dist/jquery.js"></script><script src="app.js"></script></body></html>
+</html>
