@@ -1,4 +1,4 @@
-// Created const variable for start-btn class.
+// Global variables used with jquery selector.
 const startBtn = $('.start-btn');
 const playerMenu = $('.player-menu');
 const playerInput = $('.player-menu input');
@@ -9,6 +9,7 @@ const gameAnnounce = $('.game-announce');
 const secondChance = $('.chance');
 let playerIndex = 1;
 
+// gameboardCreate Function accepts no arguments and creates elements to be entered at the start of the gameBoardLayout tag. Also adding a 'data-index' attribute to each button created and added to the players claimedTiles variables in the Player class
 function gameboardCreate() {
   let gbDiv = document.createElement('div');
   let gameAlert = document.createElement('div');
@@ -24,6 +25,7 @@ function gameboardCreate() {
   return gameBoardLayout.prepend(gbDiv, gameAlert);
 }
 
+// playerLayout Function accept one array argument. This will loop through the array and create each players hand tiles and display beneath the gameboard.
 function playerLayout(playerArr) {
   let gbpDiv = document.createElement('div');
   gbpDiv.className = `game-board-players`;
@@ -45,6 +47,7 @@ function playerLayout(playerArr) {
   return gameBoardLayout.prepend(gbpDiv) 
 }
 
+//playerHandUpdate Function accept one argument of the player class. This function will remove a tile or array item from the players hand variable and update on the user screen. 
 function playerHandUpdate(player) {
   player.tilesHand.pop();
   let activePlayerHndUpdte = document.querySelector(`.player${player.index} ul`);
@@ -73,9 +76,8 @@ class Tiles {
   }
 }
 
-// Players class will create each player
+// Players class will create each player and accept 2 arguments into the constructor the name and the players index using the global playerIndex variable.
 class Player {
-  // static indexValue = 0;
   constructor(name, index) {
     this.name = name;
     this.tilesHand = [];
@@ -85,7 +87,7 @@ class Player {
   
 }
 
-// GameBoard class will create the gameBoard and add functionality to gameBoard
+// GameBoard class will create the gameBoard and add functionality to gameBoard. The Gameboard class accepts no arguments into the constructor.
 class GameBoard {
   constructor() {
     this.players = [];
@@ -93,6 +95,7 @@ class GameBoard {
     this.playerWon = false;
   }
 
+  // gameWinCheck function accepts 1 argument an array. This will accept the players claimedTiles array with the data-index numbers pushed into it and using a for loop run through to see if the player has a matching hand to determine if the player won to end the game or continue.
   gameWinCheck(arr) {
     let winningCombos = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
     let comboCount = 0;
@@ -111,11 +114,11 @@ class GameBoard {
       }
     }
   }
-
+  //addPlayers function accepts 2 arguments a string for the first argument and a num for the second argument and push these players to the players variable within the gameboard class.
   addPlayers(name, num) {
     this.players.push(new Player(name, num));
   }
-
+  // addPlayersTiles function accepts no arguments and will use the Tiles class and push each gametiles array to each players handTiles array.
   addPlayersTiles() {
     let gameTiles = new Tiles();
     gameTiles.createTiles();
@@ -124,9 +127,10 @@ class GameBoard {
   }
 }
 
+// game variable allows the game functions to be called.
 let game = new GameBoard();
 
-// Using jquery on the start-btn variable to add an event listener of click.
+// Using jquery on the start-btn variable to add an event listener of click. Using the event as an argument if the startBtn is clicked the startgame button will hide and display the form label, input, and button.
 startBtn.on('click', (e)=> {
   if(e.target !== startBtn) {
     startBtn.hide();
@@ -135,6 +139,7 @@ startBtn.on('click', (e)=> {
   }
 })
 
+// playerMenu eventlistener accepts the event argument and will preventDefault once pressed as this is linked to the form and will prevent the page from reloading. Once the e.targets id recognizes the player-sb button and a value is true for the input the addplayer function is called and added to the players array. Once 2 players have been added to the array then the name and form inputs will be hidden and the gameboard layout will called and displayed.
 playerMenu.on('click', (e)=> {
   e.preventDefault();
   if(e.target.id === 'player-sb' && playerInput.val() !== '') {
@@ -157,6 +162,7 @@ playerMenu.on('click', (e)=> {
   }
 });
 
+// The gameboard layout function will run when a player clicks one of the buttons or .game-tile class and has not been claimed. Once clicked that players tile will be entered into the innerText of that field and be removed from the players array. The game will also push that selected game-tile and add its index to the players array. Then the gameWinCheck function will run and if the player won the modal will be displayed or the turn will be changed to the next player.
 gameBoardLayout.on('click', (e)=> {
   if(e.target.className === 'game-tile' && e.target.innerText === '') {
     let message = $('.game-alert');
@@ -191,6 +197,7 @@ gameBoardLayout.on('click', (e)=> {
   }
 })
 
+// gameAnnounce eventlistenr will be used when the modal window is displayed. Once displayed the Winner will be shown in an H2 tag and the .chance class will be displayed with 2 buttons(.main-menu and .play-again). If .main-menu is clicked then the game name and start button will be displayed and remove the gameboardlayout's innerHTML with the empty() method from jquery, the GameBoard class varialbles are reset, and the global playerIndex is set back to 0. If the .play-again button is clicked the game-board-layout.empty() method is still called and then a new board with the same player info is used readding the gametiles and clearing the buttons on the game-board.
 gameAnnounce.on('click', (e)=> {
   if(e.target.id === 'main-menu') {
     $('.game-name').show();
