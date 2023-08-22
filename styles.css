@@ -1,50 +1,22 @@
-/* CSs */
+/* CSS Stylings */
 * {
   box-sizing: border-box;
 }
 
+/* General stylings added to the body. The background color is set to a linear gradient and the stylings used for the font family from google fonts. */
 body {
-  margin: 100vw;
+  margin: 1px;
   background: linear-gradient(-60deg,#FFCB2E,#0036E5);
   font-family: 'Cormorant Garamond', serif;
   font-family: 'Roboto', sans-serif;
   font-family: 'Rock Salt', cursive;
   font-family: 'Shantell Sans', cursive;
 }
-
-.game-announce {
-  display: none;
-  flex-direction: column;
-  background-color: #fff;
-  border-radius: 5px;
-}
-
-.chance {
-  display: none;
-  flex: row;
-  width: 600px;
-  padding: 1.25rem;
-}
-
-.game-announce h2 {
-  text-align: center;
-}
-
-.chance p {
-  flex: 1 50%;
-}
-.chance button {
-  flex: 1 25%;
-}
-
-.chance button:first-child {
-  margin-right: 1rem;
-}
-
+/* removes the dots next to li tags within ul elements */
 ul {
   list-style-type: none;
 }
-
+/* positions the selected containers into the middle of the screen.  */
 .middle {
   position: absolute;
   top: 50%;
@@ -52,97 +24,7 @@ ul {
   transform: translate(-50%, -50%);
   padding: 10px;
 }
-
-.player-menu {
-  display: none;
-}
-
-.game-board-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.game-board {
-  width: 400px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.game-board {
-  order: 2;
-}
-
-.game-board button {
-  border: none;
-  border-radius: 10px;
-}
-
-.game-board-players {
-  width: 500px;
-  order: 3;
-}
-
-.game-alert {
-  order: 1;
-  align-self: center;
-  margin-bottom: 3rem;
-  font-size: 2rem;
-}
-
-.game-board-players {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 3rem;
-}
-
-.player {
-  width: 200px;
-  text-align: center;
-  font-size: 2rem;
-}
-
-.player ul{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-
-.player li {
-  font-size: 2.5rem;
-}
-
-.game-tile {
-  text-align: center;
-  padding: 0;
-  width: 100px;
-  height: 100px;
-  font-size: 4rem;
-}
-
-.player ul {
-  padding-inline-start: 0;
-}
-
-.player p {
-  text-decoration: underline;
-}
-
-.player1 {
-  color: #fffC;
-}
-
-.player2 {
-  color: #0043CD;
-}
-
-.game-board-layout {
-  display: none;
-}
-
+/* Added to modal to gray out the background so nothing can be accessed behind. */
 .overlay {
   background-color: rgba(0,0,0,0.5);
   position: absolute;
@@ -154,4 +36,176 @@ ul {
   height: 100%;
   overflow: hidden;
 }
+/* Stylings for the game button tiles */
+.game-tile {
+  padding: 0;
+  width: 50px;
+  height: 50px;
+  font-size: 1.75rem;
+}
+/* add a background color to modal window and curves the border with border-radius */
+.game-announce {
+  background-color: #fff;
+  border-radius: 5px;
+}
+/* aligns the text in the center for these elements */
+.game-announce h2,
+.player,
+.game-tile {
+  text-align: center;
+}
+/* width of the gameboard */
+.game-board {
+  width: 200px;
+}
+/* gives a border radius and removes border of the buttons within the game-board class */
+.game-board button {
+  border: none;
+  border-radius: 10px;
+}
+/* Changes font size to a 2 rem of the root font sizing of the file. Also adds a bottom margin to give space between this item and the game-board */
+.game-alert {
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
+/* .player1 and .player2 stylings change the color of the text */
+.player1 {
+  color: #fffC;
+}
 
+.player2 {
+  color: #0043CD;
+}
+/* gives a top margin of 3rem this container to give space between the players names and the game-board */
+.game-board-players {
+  margin-top: 3rem;
+}
+
+/* sets the width and font size of the player class */
+.player {
+  width: 200px;
+  font-size: 2rem;
+}
+
+/* changes font size of the li elements in each player ul tag */
+.player li {
+  font-size: 2rem;
+}
+
+/* removes the padding of the li elements so the li element start at the beginning of the box and don't have an indent */
+.player ul {
+  padding-inline-start: 0;
+}
+
+/* Added an underline to the players name */
+.player p {
+  text-decoration: underline;
+}
+
+/* modal window displayed when the game is over adds the width and padding so items in this container don't touch */
+.chance {
+  width: 300px;
+  padding: 1.25rem;
+}
+/* selects the first button in the .chance container and gives that button a bottom margin */
+.chance button:first-child {
+  margin-bottom: 1rem;
+}
+/* does not display these items and will be changed using JS */
+.game-announce,
+.chance,
+.player-menu,
+.game-board-layout {
+  display: none;
+}
+
+
+/* FlexBox */
+/* FlexBox stylings are added to the flex containers and aligned so that the items in the container can be organized on the screen. */
+
+.player ul,
+.game-board-layout,
+.game-board,
+.game-board-players{
+  display: flex;
+}
+
+.chance,
+.game-announce,
+.game-board-players{
+  flex-direction: column;
+}
+
+.player ul{
+  flex-direction: row;
+}
+
+.player ul,
+.game-board-players {
+  justify-content: space-around;
+}
+
+.game-board-layout {
+  flex-direction: column;
+  align-items: center;
+}
+
+.chance {
+  align-items: center;
+}
+
+.chance p {
+  flex: 1 50%;
+}
+.chance button {
+  flex: 1 25%;
+}
+
+.game-board {
+  order: 2;
+}
+
+.game-board {
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.game-board-players {
+  order: 3;
+}
+
+.game-alert {
+  order: 1;
+  align-self: center;
+}
+
+/* Media Queries */
+/* Media queries will be run once the view width is a minimum of 768px. This will make the game board stylings width bigger. */
+@media (min-width: 768px) {
+  .game-board {
+    width: 400px;
+  }
+
+  .game-tile {
+    font-size: 4rem;
+    width: 100px;
+    height: 100px;
+  }
+
+  .game-board-players {
+    width: 500px;
+    flex-direction: row;
+  }
+
+  .chance {
+    width: 600px;
+    flex-direction: row;
+    align-items: normal;
+  }
+
+  .chance button:first-child {
+    margin-bottom: 0;
+    margin-right: 1rem;
+  }
+}
